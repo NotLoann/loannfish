@@ -446,7 +446,8 @@
   </div>
 
   <div id="shop-screen" class="hidden">
-    <h2>Shop</h2>
+    <h2>Welcome to the Shop!</h2>
+    <h3 >The shopkeeper is on vacacion, but don't steal!</h4>
     <div class="shop-menu-buttons">
         <button onclick="showSellTab()">Sell Items</button>
         <button onclick="showBuyTab()">Buy Items</button>
@@ -458,7 +459,7 @@
             <ul id="sell-list"></ul>
         </div>
         <div id="shop-content-buy" class="hidden">
-            <h3>Buy Items & Equip Hooks</h3>
+            <h3>Buy Items & Equip Hooks/Fishing Rods!</h3>
             <p>Purchase powerful items to improve your fishing experience!</p>
             <ul id="buy-list"></ul>
         </div>
@@ -469,8 +470,8 @@
 
   <div id="game" class="hidden">
     <div id="moneyDisplayTopRight">Money: $0</div> 
-    <h1>🎣 The Fishing Place 1</h1>
-    <button id="fish-button" onclick="fish()">Fish!</button>
+    <h1>🎣 The Fishing Place</h1>
+    <button id="fish-button" onclick="fish()">Launch your hook</button>
     <div id="fish-spam-message"></div> 
     <div class="animation-line" id="rod" style="display:none;"></div>
     <div id="result"></div>
@@ -484,8 +485,8 @@
         <p>Equipped Rod: <span id="current-rod">None</span></p>
     </div>
     <div class="game-buttons">
-        <button class="menu-btn" onclick="showShop()">Shop</button>
-        <button class="menu-btn" onclick="showMenu()">Back to Menu</button>
+        <button class="menu-btn" onclick="showShop()">The Shop</button>
+        
     </div>
   </div>
 
@@ -511,96 +512,88 @@
 
 const fishes = [
 
+
+
+
   // --- Very Common / Beach Debris and Small Organisms (1 Star) ---
-  { name: "🥫 Rusty Soda Can", rarity: 15, stars: 1, xp: 5, price: 2 },
-  { name: "🛍️ Plastic Bag", rarity: 14, stars: 1, xp: 4, price: 1 },
-  { name: "🎣 Tangled Fishing Line", rarity: 13, stars: 1, xp: 6, price: 3 },
-  { name: "👟 Single Flip-Flop", rarity: 12, stars: 1, xp: 7, price: 4 },
-  { name: "🗑️ Bottle Cap", rarity: 11, stars: 1, xp: 3, price: 1 },
-  { name: "🦀 Small Common Crab", rarity: 10, stars: 1, xp: 10, price: 6 },
-  { name: "🪙 Old Coin", rarity: 9, stars: 1, xp: 12, price: 7 },
-  { name: "🐦 Seagull Feather", rarity: 8, stars: 1, xp: 6, price: 3 },
-  { name: "🪱 Beach Worm", rarity: 7, stars: 1, xp: 7, price: 3 },
-  { name: "🐚 Intact Common Seashell", rarity: 6, stars: 1, xp: 7, price: 3 },
-  { name: "🐟 Small Fish Anchovy/Sardine", rarity: 5, stars: 1, xp: 10, price: 6 },
-  { name: "🌱 Seagrass Shoots", rarity: 4, stars: 1, xp: 5, price: 2 },
-  { name: "🪢 Short Nautical Rope", rarity: 3, stars: 1, xp: 6, price: 3 },
-  { name: "🧽 Natural Sea Sponge", rarity: 2.5, stars: 1, xp: 4, price: 2 },
-  { name: "🪨 Common Coral Piece", rarity: 2, stars: 1, xp: 8, price: 4 },
+  { name: "🥫 Plastic Can", rarity: 15, stars: 1, xp: 15, price: 9999999999 },
+  { name: "🛍️ Plastic", rarity: 14, stars: 1, xp: 12, price: 10000000000 },
+  { name: "🎣 Broken Line", rarity: 13, stars: 1, xp: 18, price: 3 },
+  { name: "🦀 Crab", rarity: 10, stars: 1, xp: 30, price: 6 },
+  { name: "🪙 Coin", rarity: 9, stars: 1, xp: 36, price: 35 },
+  { name: "🐦 Feather", rarity: 8, stars: 1, xp: 18, price: 3 },
+  { name: "🪱 Worm", rarity: 7, stars: 1, xp: 21, price: 3 },
+  { name: "🐚 Seashell", rarity: 6, stars: 1, xp: 21, price: 3 },
+  { name: "🐟 Fish", rarity: 5, stars: 1, xp: 30, price: 6 },
+  { name: "🌱 Seagrass", rarity: 4, stars: 1, xp: 15, price: 2 },
+  { name: "🔗 Rope", rarity: 3, stars: 1, xp: 18, price: 3 },
+  { name: "🧽 Sponge", rarity: 2.5, stars: 1, xp: 12, price: 2 },
+  { name: "🪸 Coral", rarity: 2, stars: 1, xp: 24, price: 4 },
 
   // --- Uncommon (2 Stars) ---
-  { name: "🐠 Juvenile Clownfish", rarity: 8, stars: 2, xp: 25, price: 15 },
-  { name: "👟 Old Water Shoe", rarity: 7, stars: 2, xp: 28, price: 12 },
-  { name: "🦀 Small Lobster", rarity: 6.5, stars: 2, xp: 35, price: 20 },
-  { name: "🦴 Large Fish Bone", rarity: 6, stars: 2, xp: 24, price: 9 },
-  { name: "🔑 Rusty Locker Key", rarity: 5.5, stars: 2, xp: 30, price: 18 },
-  { name: "📜 Message in a Bottle Readable", rarity: 5, stars: 2, xp: 40, price: 25 },
-  { name: "🐠 Common Tropical Fish", rarity: 4.8, stars: 2, xp: 32, price: 20 },
-  { name: "🤿 Cracked Snorkel Mask", rarity: 4.5, stars: 2, xp: 30, price: 16 },
-  { name: "🐚 Intact Nautilus Shell", rarity: 3.6, stars: 2, xp: 45, price: 30 },
-  { name: "🦞 Small Spiny Lobster", rarity: 3.4, stars: 2, xp: 50, price: 35 },
-  { name: "📷 Old Waterproof Camera no film", rarity: 3.2, stars: 2, xp: 42, price: 28 },
-  { name: "🐙 Baby Octopus", rarity: 2.8, stars: 2, xp: 40, price: 25 },
-  { name: "🦀 Hermit Crab with pretty shell", rarity: 2.2, stars: 2, xp: 42, price: 28 },
-  { name: "🐠 Juvenile Angelfish", rarity: 2, stars: 2, xp: 48, price: 30 },
-  { name: "🌟 Common Colored Sea Glass", rarity: 1, stars: 2, xp: 28, price: 12 },
-  { name: "🐚 Dried Starfish", rarity: 0.8, stars: 2, xp: 30, price: 15 },
-  { name: "🐡 Adult Perch", rarity: 0.6, stars: 2, xp: 38, price: 22 },
-  { name: "🦑 Small Squid", rarity: 0.4, stars: 2, xp: 40, price: 25 },
+  { name: "🐠 Clownfish", rarity: 8, stars: 2, xp: 75, price: 15 },
+  { name: "🦞 Lobster", rarity: 6.5, stars: 2, xp: 105, price: 20 },
+  { name: "🦴 Fishbone", rarity: 6, stars: 2, xp: 72, price: 9 },
+  { name: "🔑 Key", rarity: 5.5, stars: 2, xp: 90, price: 18 },
+  { name: "✉️ Letter", rarity: 5, stars: 2, xp: 120, price: 25 },
+  { name: "🐠 Tropicalfish", rarity: 4.8, stars: 2, xp: 96, price: 20 },
+  { name: "🤿 Snorkel", rarity: 4.5, stars: 2, xp: 90, price: 16 },
+  { name: "🐚 Nautilus", rarity: 3.6, stars: 2, xp: 135, price: 30 },
+  { name: "🦞 Spinylobster", rarity: 3.4, stars: 2, xp: 150, price: 35 },
+  { name: "📸 Camera", rarity: 3.2, stars: 2, xp: 126, price: 28 },
+  { name: "🐙 Octopus", rarity: 2.8, stars: 2, xp: 120, price: 25 },
+  { name: "🦀 Hermitcrab", rarity: 2.2, stars: 2, xp: 126, price: 28 },
+  { name: "🐟 Angelfish", rarity: 2, stars: 2, xp: 144, price: 30 },
+  { name: "💎 Seaglass", rarity: 1, stars: 2, xp: 84, price: 12 },
+  { name: "⭐ Starfish", rarity: 0.8, stars: 2, xp: 90, price: 15 },
+  { name: "🐡 Perch", rarity: 0.6, stars: 2, xp: 114, price: 22 },
+  { name: "🦑 Squid", rarity: 0.4, stars: 2, xp: 120, price: 25 },
 
   // --- Rare (3 Stars) ---
-  { name: "🐠 Colorful Parrotfish", rarity: 3, stars: 3, xp: 50, price: 40 },
-  { name: "🦀 Juvenile King Crab", rarity: 2.8, stars: 3, xp: 55, price: 45 },
-  { name: "🕰️ Sunken Pocket Watch", rarity: 2.5, stars: 3, xp: 60, price: 50 },
-  { name: "🧭 Old Ship Compass", rarity: 2.3, stars: 3, xp: 65, price: 55 },
-  { name: "💎 Small Amber Piece", rarity: 2.1, stars: 3, xp: 70, price: 60 },
-  { name: "🐢 Baby Sea Turtle", rarity: 1.1, stars: 3, xp: 90, price: 80 },
-  { name: "🐬 Worn Dolphin Toy", rarity: 1, stars: 3, xp: 85, price: 75 },
-  { name: "🐚 Giant Conch Shell", rarity: 0.9, stars: 3, xp: 95, price: 85 },
-  { name: "🦈 Curious Baby Shark", rarity: 0.8, stars: 3, xp: 100, price: 90 },
-  { name: "⚓ Small Ship's Anchor", rarity: 0.35, stars: 3, xp: 115, price: 105 },
-  { name: "🐟 Juvenile Sunfish", rarity: 0.3, stars: 3, xp: 120, price: 110 },
-  { name: "💎 Geode with Sea Crystals", rarity: 0.15, stars: 3, xp: 130, price: 120 },
-  { name: "🌟 Rare Colored Sea Glass", rarity: 0.09, stars: 3, xp: 110, price: 100 },
-  { name: "🐙 Juvenile Giant Pacific Octopus", rarity: 0.08, stars: 3, xp: 150, price: 140 },
-  { name: "🐠 Royal Gramma Fish", rarity: 0.03, stars: 3, xp: 130, price: 120 },
-  { name: "🚤 Working Toy Speedboat", rarity: 0.01, stars: 3, xp: 150, price: 140 },
+  { name: "🐠 Parrotfish", rarity: 3, stars: 3, xp: 150, price: 40 },
+  { name: "🦀 King crab", rarity: 2.8, stars: 3, xp: 165, price: 45 },
+  { name: "🕰️ Pocket watch", rarity: 2.5, stars: 3, xp: 180, price: 50 },
+  { name: "🧭 Compass", rarity: 2.3, stars: 3, xp: 195, price: 55 },
+  { name: "💎 Amber", rarity: 2.1, stars: 3, xp: 210, price: 240 },
+  { name: "🐢 Sea turtle", rarity: 1.1, stars: 3, xp: 270, price: 80 },
+  { name: "🐬 Dolphin", rarity: 1, stars: 3, xp: 255, price: 75 },
+  { name: "🐚 Conch", rarity: 0.9, stars: 3, xp: 285, price: 85 },
+  { name: "🦈 Shark", rarity: 0.8, stars: 3, xp: 300, price: 90 },
+  { name: "⚓ Anchor", rarity: 0.35, stars: 3, xp: 345, price: 105 },
+  { name: "🐡 Sunfish", rarity: 0.3, stars: 3, xp: 360, price: 110 },
+  { name: "💎 Geode", rarity: 0.15, stars: 3, xp: 390, price: 120 },
+  { name: "🌈 Iridescent glass", rarity: 0.09, stars: 3, xp: 330, price: 100 },
+  { name: "🐙 Giant octopus", rarity: 0.08, stars: 3, xp: 450, price: 140 },
+  { name: "🐟 Royalgramma", rarity: 0.03, stars: 3, xp: 390, price: 120 },
+  { name: "🚤 Toyboat", rarity: 0.01, stars: 3, xp: 450, price: 140 },
 
   // --- Very Rare (4 Stars) ---
-  { name: "🐠 Regal Tang", rarity: 1, stars: 4, xp: 180, price: 160 },
-  { name: "📦 Empty Sunken Treasure Chest", rarity: 0.9, stars: 4, xp: 190, price: 170 },
-  { name: "🗺️ Partial Ancient Mariner's Chart", rarity: 0.7, stars: 4, xp: 210, price: 190 },
-  { name: "⚓ Small Old Shipwreck Anchor", rarity: 0.4, stars: 4, xp: 240, price: 220 },
-  { name: "👑 Chipped Coral Crown", rarity: 0.3, stars: 4, xp: 260, price: 240 },
-  { name: "🔑 Captain's Cabin Key", rarity: 0.28, stars: 4, xp: 270, price: 250 },
-  { name: "🌟 Glowing Starfish", rarity: 0.12, stars: 4, xp: 330, price: 310 },
-  { name: "🐠 Lionfish", rarity: 0.06, stars: 4, xp: 370, price: 350 },
-  { name: "💎 Barnacle-Crusted Emerald Amulet", rarity: 0.045, stars: 4, xp: 390, price: 370 },
-  { name: "🛡️ Decorative Coral Shield", rarity: 0.035, stars: 4, xp: 410, price: 390 },
-  { name: "🧳 Waterproof Captain's Logbook", rarity: 0.02, stars: 4, xp: 440, price: 420 },
-  { name: "🐚 Pearl Oyster with large pearl", rarity: 0.012, stars: 4, xp: 470, price: 450 },
-  { name: "🌊 Trophy Size Giant Bluefin Tuna", rarity: 0.009, stars: 4, xp: 490, price: 470 },
-  { name: "🦀 Very Large Coconut Crab", rarity: 0.008, stars: 4, xp: 500, price: 480 },
-  { name: "🎣 Golden Lure", rarity: 0.006, stars: 4, xp: 520, price: 500 },
+  { name: "🐠 Regaltang", rarity: 1, stars: 4, xp: 540, price: 160 },
+  { name: "📦 Treasurechest", rarity: 0.9, stars: 4, xp: 570, price: 170 },
+  { name: "🗺️ Oldchart", rarity: 0.7, stars: 4, xp: 630, price: 190 },
+  { name: "⚓ Shipanchor", rarity: 0.4, stars: 4, xp: 720, price: 220 },
+  { name: "👑 Broken Crown", rarity: 0.3, stars: 4, xp: 780, price: 240 },
+  { name: "⭐ Glowing starfish", rarity: 0.12, stars: 4, xp: 990, price: 310 },
+  { name: "🐡 Lionfish", rarity: 0.06, stars: 4, xp: 1110, price: 350 },
+  { name: "💎 Emerald amulet", rarity: 0.045, stars: 4, xp: 1170, price: 370 },
+  { name: "🛡️ Coral shield", rarity: 0.035, stars: 4, xp: 1230, price: 390 },
+  { name: "🐟 Tuna", rarity: 0.009, stars: 4, xp: 1470, price: 470 },
+  { name: "🦀 Coconut crab", rarity: 0.008, stars: 4, xp: 1500, price: 480 },
+  { name: "🎣 Golden lure", rarity: 0.006, stars: 4, xp: 1560, price: 500 },
 
   // --- Legendary (5 Stars) ---
-
-  { name: "🪙 Perfectly Preserved Gold Coin", rarity: 0.25, stars: 5, xp: 600, price: 550 },
-  { name: "👑 Miniature Crown", rarity: 0.15, stars: 5, xp: 700, price: 650 },
-  { name: "🗺️ Complete Map to Atlantis", rarity: 0.05, stars: 5, xp: 1000, price: 950 },
-  { name: "🗿 Deep Sea Variant Moai Head", rarity: 0.04, stars: 5, xp: 1100, price: 1050 },
-  { name: "🔑 Master Key of the Deep", rarity: 0.03, stars: 5, xp: 1200, price: 1150 },
-  { name: "🔭 Abyssal Telescope", rarity: 0.025, stars: 5, xp: 1250, price: 1200 },
-  { name: "💎 Petrified Kraken's Eye", rarity: 0.012, stars: 5, xp: 1450, price: 1400 },
-  { name: "🌟 Pulsating Star Coral", rarity: 0.01, stars: 5, xp: 1500, price: 1450 },
-  { name: "📜 Sealed Poseidon's Decree", rarity: 0.009, stars: 5, xp: 1550, price: 1500 },
-  { name: "🐠 Living Fossil Coelacanth", rarity: 0.006, stars: 5, xp: 1700, price: 1650 },
+  { name: "💙 Heart of the Ocean", rarity: 0.3, stars: 5, xp: 1650, price: 500 },
+  { name: "🪙 Aztecgold", rarity: 0.25, stars: 5, xp: 1800, price: 550 },
+  { name: "👑 Half-broken Crown", rarity: 0.15, stars: 5, xp: 2100, price: 650 },
+  { name: "🗿 MOAI", rarity: 0.04, stars: 5, xp: 3300, price: 1050 },
+  { name: "👁️ Eye of the Kraken", rarity: 0.012, stars: 5, xp: 4350, price: 1400 },
+  { name: "🐡 Coelacanth", rarity: 0.006, stars: 5, xp: 5100, price: 1650 },
 
   // --- Unique (6 Stars) - Ultimate Summer Treasures ---
-  { name: "🐡 Trophy Fish", rarity: 0.003, stars: 6, xp: 2000, price: 20000 },
+  { name: "🐡 Trophy Fish", rarity: 0.000003, stars: 6, xp: 6000, price: 20000 },
 ];
 
-    const shopItems = [
+const shopItems = [
         // Hooks (Type: hook)
         
         
@@ -609,11 +602,12 @@ const fishes = [
         // Rod (Type: rod - un équipement comme les hooks)
         { id: 'basic_hook', name: 'Basic Hook', price: 500, type: 'hook', speedBonus: 0.10, description: "+10% fishing speed." },
         { id: 'basic_rod', name: 'Basic Fishing Rod', price: 850, type: 'rod', speedBonus: 0.20, description: "+20% fishing speed." },
-        { id: 'advanced_hook', name: 'Advanced Hook', price: 2000, type: 'hook', speedBonus: 0.30, description: "+30% fishing speed" },
+        { id: 'advanced_hook', name: 'Advanced Hook', price: 2000, type: 'hook', speedBonus: 0.20, description: "+30% fishing speed" },
         { id: 'advanced_rod', name: 'Advanced Fishing Rod', price: 3000, type: 'rod', speedBonus: 0.40, description: "+40% fishing speed" },
-        { id: 'master_hook', name: 'Master Hook', price: 5000, type: 'hook', speedBonus: 0.60, description: "+60% fishing speed" },
+        { id: 'master_hook', name: 'Master Hook', price: 5000, type: 'hook', speedBonus: 0.30, description: "+60% fishing speed" },
         { id: 'master_anglers_rod', name: 'Master Angler\'s Rod', price: 8000, type: 'rod', speedBonus: 0.20, rareChanceBonus: { stars: 4, bonus: 0.15 }, description: "+20% fishing speed & +15% luck" },
-        { id: 'blessed_hook', name: 'Blessed Hook', price: 11000, type: 'hook', rareChanceBonus: { stars: 4, bonus: 0.5 }, description: "+50% luck" }
+        { id: 'blessed_hook', name: 'Blessed Hook', price: 11000, type: 'hook', rareChanceBonus: { stars: 4, bonus: 0.5 }, description: "+50% luck" },
+
     ];
 
     // --- Game State Object ---
